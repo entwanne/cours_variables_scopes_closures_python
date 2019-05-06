@@ -1,5 +1,5 @@
 {
-    "description":"",
+    "description":"Comprendre leur fonctionnement et en éviter les pièges",
     "version":2.1,
     "licence":"CC BY",
     "slug":"variables-scopes-et-closures-en-python",
