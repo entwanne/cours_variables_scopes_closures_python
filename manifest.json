@@ -1,0 +1,32 @@
+{
+    "description":"",
+    "version":2.1,
+    "licence":"CC BY",
+    "slug":"variables-scopes-et-closures-en-python",
+    "introduction":"introduction.md",
+    "title":"Variables, scopes et closures en Python",
+    "ready_to_publish":true,
+    "children":[
+        {
+            "slug":"une-histoire-de-variables",
+            "text":"une-histoire-de-variables.md",
+            "object":"extract",
+            "title":"Une histoire de variables"
+        },
+        {
+            "slug":"referencement-et-dereferencement",
+            "text":"referencement-et-dereferencement.md",
+            "object":"extract",
+            "title":"Référencement et déréférencement"
+        },
+        {
+            "slug":"portee-des-variables",
+            "text":"portee-des-variables.md",
+            "object":"extract",
+            "title":"Portée des variables"
+        }
+    ],
+    "type":"TUTORIAL",
+    "object":"container",
+    "conclusion":"conclusion.md"
+}
