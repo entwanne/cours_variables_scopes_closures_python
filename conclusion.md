@@ -1,4 +1,4 @@
-Derrière leur apparente simplicité, les variables sont en réaliter un mécanisme bien plus complexe.
+Derrière leur apparente simplicité, les variables sont en réalité un mécanisme bien plus complexe.
 Et lorsqu'elles sont mal comprises, elles peuvent vous amener à tomber dans de nombreux pièges.
 J'espère que ce tutoriel vous permettra de reconnaître ces pièges et surtout de les éviter.
 
