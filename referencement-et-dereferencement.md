@@ -3,7 +3,7 @@
 Plutôt que d'étiquettes, on parle plus couramment de références, mais l'idée est exactement la même : une variable est une référence vers une valeur. Deux variables distinctes peuvent référencer la même valeur. Une variable peut être réassignée pour référencer une valeur différente.
 
 Chaque définition d'une variable en Python crée une nouvelle référence vers la valeur assignée.
-Cela est vrai pour toute variable, incluant au passages les paramètres d'une fonction, qui deviennent lors de l'appel de nouvelles références vers les valeurs passées en arguments.
+Cela est vrai pour toute variable, incluant au passage les paramètres d'une fonction, qui deviennent lors de l'appel de nouvelles références vers les valeurs passées en arguments.
 Il en est de même pour les valeurs insérées dans un conteneur (liste, *tuple*, dictionnaire, etc.) : c'est une référence vers la valeur qui est stockée dans le conteneur.
 
 Tant qu'il existe au moins une référence vers une valeur, on dit que cette valeur est référencée. Une valeur référencée ne peut jamais être supprimée de la mémoire (cela poserait des problèmes pour les utilisations futures de la valeur via d'autres variables).
@@ -122,13 +122,41 @@ deleting <__main__.Obj object at 0x7f4077157be0>
 4
 ```
 
+Les références cycliques sont assez courantes lorsqu'on travaille sur des représentations arborescentes et que l'on souhaite que les nœuds parents et enfants puissent se référencer.
+C'est aussi le cas pour la gestion de données sous forme de graphes.
+
+# Références faibles
+
+Le problème des références cycliques provient du fait que le ramasse-miettes ne peut collecter les objets tant qu'ils sont référencés.
+Une autre manière de le résoudre est alors d'utiliser des références qui n'empêchent pas ce ramasse-miettes de supprimer les valeurs.
+On les appelle « références faibles » et elles sont fournies en Python par le module [`weakref`](https://docs.python.org/3/library/weakref.html).
+
+Une référence faible est similaire à un appel de fonction qui renvoie l'objet si celui-ci est toujours référencé, ou `None` s'il a été supprimé.
+
+```python
+>>> import weakref
+>>>
+>>> obj1 = Obj()
+>>> obj2 = Obj()
+>>> obj1.ref = obj2
+>>> obj2.ref = weakref.ref(obj1)
+>>>
+>>> obj2.ref
+<weakref at 0x7f8de5d69408; to 'Obj' at 0x7f8de5d6b128>
+>>> print(obj2.ref())
+<__main__.Obj object at 0x7f8de5d6b128>
+>>> obj2.ref() is obj1
+True
+>>>
+>>> del obj1
+deleting <__main__.Obj object at 0x7f8de5d6b128>
+>>> print(obj2.ref())
+None
+```
+
 -----------------
 
 Quelques liens pour aller plus loin sur le sujet :
 
 * https://rushter.com/blog/python-garbage-collector/
 * https://docs.python.org/3/library/gc.html
-
-Ainsi que le module `weakref`, qui permet d'avoir une « référence faible » sur une valeur (référence qui n'existe qu'à l'utilisation et qui n'empêche donc pas la valeur d'être supprimée) :
-
-* https://docs.python.org/3/library/weakref.html

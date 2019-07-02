@@ -81,7 +81,12 @@ Le résultat aurait été `False` si les deux listes avaient été distinctes :
 False
 ```
 
-Notez que j'utilise ici des listes (objets mutables) afin de ne pas être être embêté dans mes exemples par les optimisations du compilateur, mais le fait que `b = a` ajoute une étiquette supplémentaire à la valeur existante est vrai pour tout type de valeur.
+Notez que j'utilise ici des listes pour ne pas être embêté dans mes exemples par certaines optimisations du compilateur.
+En effet, les listes étant des objets mutables (que l'on peut modifier, par exemple en y ajoutant des éléments), deux instanciations différentes de listes donnent nécessairement des objets distincts.
+En revanche, les objets de type `int`, `str` ou encore `tuple` (et quelques autres) étant immutables, Python se permet dans certains cas de n'avoir qu'une seule instance pour plusieurs objets.
+Il sait que deux objets initialement égaux ne pourront être modifiés, et resteront donc toujours égaux, cela lui permet d'éviter d'occuper inutilement de l'espace avec plusieurs valeurs similaires.
+
+Mais optimisations ou non, le fait que `b = a` ajoute une étiquette supplémentaire à la valeur existante est vrai pour tout type de valeur.
 En d'autres termes, `a is b` sera toujours vrai après un `b = a`, quelle que soit la valeur initiale de `a`.
 
 La conséquence de cela est que modifier `b` revient à modifier `a` (et inversement), puisque les deux étiquettes sont posées sur la même valeur :
@@ -109,6 +114,7 @@ Des cas de références multiples, on en rencontre très régulièrement en Pyth
 ```
 
 `table` est une liste contenant 3 fois la même valeur, modifier l'une d'elle revient à modifier les autres.
+En effet, la multiplication d'une liste ne fait que multiplier les références que contient cette liste, elle ne procède pas à une copie des valeurs.
 
 (Techniquement, `table[0]` est aussi une liste composée de 4 fois la même valeur, mais cette valeur étant immuable et donc redéfinie à chaque changement, il n'y a pas d'effet de bord.)
 
@@ -137,7 +143,7 @@ Pour pallier à ce problème, on utilisera plutôt une liste en intension avec u
 Le problème ici est que les valeurs par défaut des paramètres sont définies une bonne fois pour toutes lors de la définition de la fonction, et conservées pour tous les appels.
 Donc chaque appel à `append_to_list` utilisant la valeur par défaut référencera la même liste.
 
-Pour contourner ce soucis, il est conseillé d'éviter les valeurs par défaut mutables, ou d'utiliser des sentinelles (`None` par exemple).
+Pour contourner ce souci, il est conseillé d'éviter les valeurs par défaut mutables, ou d'utiliser des sentinelles (`None` par exemple).
 
 ```python
 >>> def append_to_list(value, dest=None):
