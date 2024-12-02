@@ -7,3 +7,5 @@ Le tutoriel est publié sur Zeste de Savoir à l'adresse suivante : https://zes
 Ou directement consultable depuis Github en parcourant le dossier [`src/`](src/).
 
 ![Logo](images/python_closure.png)
+
+Tutoriel sous licence [CC BY](https://creativecommons.org/licenses/by/4.0/deed.fr).
